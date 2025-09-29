@@ -157,16 +157,95 @@ def map_age(age):
 # Map values in 'Age' column using the function
 df_map['Age Group'] = df_map['Age'].map(map_age)    # use of map not apply ***
 
+### 9_w1_9 ###                     
+# Concatenate - Tutorial #
+# yt - https://www.youtube.com/watch?v=9AYVGYF4j_s #
 
+# Create two sample DataFrames
+temp_data = pd.DataFrame({'Date': ['12-02-2023', '13-02-2023', '14-02-2023', '15-02-2023', '16-02-2023'],
+                    'TempMax': [24.3, 26.9, 23.4, 15.5, 16.1 ] })
 
+rainfall_data = pd.DataFrame({'Date': ['12-02-2023', '13-02-2023', '14-02-2023', '15-02-2023', '16-02-2023'],
+                    'Rainfall': [0, 3.6, 3.6, 39.8, 2.8 ] })
 
+result_col = pd.concat([temp_data, rainfall_data])    # .concat take list ***
+print("\nConcatenate along rows:")
+print(result_col)
 
+# Concatenate along columns (axis=1)
+result_col = pd.concat([temp_data, rainfall_data], axis=1)  # axis = 1 horizontallly merge ***
+print("\nConcatenate along columns:")
+print(result_col)
 
+# ignore_index
+# In pandas.concat, the ignore_index parameter is a boolean value that determines whether to ignore the index labels along the concatenation axis or not.
+# When ignore_index is set to True, the resulting concatenated DataFrame will have a new RangeIndex along the concatenation axis, effectively ignoring the original index labels of the input DataFrames.
 
+# Concatenate along columns (axis=0) (ignore_index=False)
+result_col_notIgnore = pd.concat([temp_data, rainfall_data], axis=0,ignore_index=False)  # *** ignore index = false
+print("\nConcatenate along columns with ignore_index = False:")
+print(result_col_notIgnore)
 
+# Concatenate along columns (axis=0) (ignore_index=True)
+result_col_ignore = pd.concat([temp_data, rainfall_data], axis=0, ignore_index=True)  # *** ignore index = true
+print("\nConcatenate along columns with ignore_index = True:")
+print(result_col_ignore)                                                              # *** notice the index of result_col dataframe new index
 
+result_col_inner = pd.concat([temp_data, rainfall_data], axis=0, join='inner')       # *** inner common column
+print("\nConcatenate with inner join:")
+print(result_col_inner)
 
+# Concatenate with outer join
+result_col_outer = pd.concat([temp_data, rainfall_data], axis=0, join='outer')      # *** outer all column
+print("\nConcatenate with outer join:")
+print(result_col_outer)
 
+# Creating the first DataFrame
+data1 = {'Name': ['Alice', 'Bob', 'Charlie'],
+         'Age': [25, 30, 35],
+         'Score': [85, 90, 88]}
+df1 = pd.DataFrame(data1)
 
+# Creating the second DataFrame
+data2 = {'Name': ['David', 'Eve', 'Charlie'],
+         'Age': [27, 32, 35],
+         'Score': [82, 88, 88],
+         "extra":[100,100,100]}
+df2 = pd.DataFrame(data2)
+
+print("DataFrame 1:")
+print(df1)
+print("\nDataFrame 2:")
+print(df2)
+
+result_col_inner2 = pd.concat([df1, df2], axis=0, join='inner',ignore_index=True)    # inner with new index ***
+result_col_inner2
+
+result_col_inner2_1 = pd.concat([df1, df2], axis=1,ignore_index=True)        #  with new index , horizontally ***
+result_col_inner2_1
+
+result_col_key1 = pd.concat([temp_data, rainfall_data], axis=0, keys=('Delhi','Chennai'))    # *** 
+print("\nConcatenate along columns with keys, axis = 0:")
+print(result_col_key1)
+
+result_col_key1.loc["Delhi"]
+result_col_key1.loc["Delhi"]['TempMax'][4]
+
+result_col_key2 = pd.concat([temp_data, rainfall_data], axis=1, keys='AB')      # *** 
+print("\nConcatenate along columns with keys, axis = 1:")
+result_col_key2
+
+ax_temp_A = result_col_key2['A']['TempMax'].max()      # ***
+print("Maximum temperature in section A:", max_temp_A)
+
+result_col_key3 = pd.concat([df1, df2], axis=1, keys='AB')  # ***
+print("\nConcatenate along columns with keys, axis = 1:")
+result_col_key3
+
+min_score_A3 = result_col_key3['A']['Score'].min()
+print("Maximum temperature in section A:", min_score_A3)
+
+min_score_B3 = result_col_key3['B']['Score'].min()
+print("Maximum temperature in section B:", min_score_B3)
 
 
