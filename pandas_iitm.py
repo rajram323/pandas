@@ -764,7 +764,47 @@ for i in range(1, n_tosses + 1):
 # Show the final plot
 plt.show()
 
-# Animating the plots
+### 1_w1_ ###                     
+# Seaborn - Tutorial #
+# yt - https://www.youtube.com/watch?v=gD3x3-XTuXQ #
+# colab - https://colab.research.google.com/drive/1V6sCQPC3jW0fSZ-kdXV58eNNKRmu9bqO?usp=sharing #
+
+import seaborn as sns
+from copy import deepcopy  # ***
+
+#reading the  data
+Data=pd.read_csv('/content/train.csv')
+
+# Extracting the columns
+exploration_set=deepcopy(Data[['ID','RecipeNumber','RecipeCode','UserReputation','ThumbsUpCount', 'ThumbsDownCount','BestScore','Rating']])  # ***
+
+# Creating a correlation matrix
+corr_matrix=exploration_set.corr(method='pearson')  # ***
+
+# Creating  a heatmap
+sns.heatmap(corr_matrix,annot=True)  # ***
+
+sns.scatterplot(x=Data['RecipeNumber'],y=Data['RecipeCode'], hue=Data['Rating'])  # ***
+
+sns.scatterplot(x=Data['ThumbsUpCount'],y=Data['BestScore'], hue=Data['Rating'])  # ***
+
+Data.hist(bins=50,figsize=(15,15))  # ***
+
+sns.pairplot(Data, diag_kind="hist") # ***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
