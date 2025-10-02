@@ -354,21 +354,136 @@ pivot_table5
 pivot_table6 = df.pivot_table(values='colA', index=['orderID','customer'], columns='product', aggfunc='max', fill_value = 0)
 pivot_table6
 
+### 12_w1_12 ###                     
+# Merge and join Methods - Tutorial #
+# yt - https://www.youtube.com/watch?v=qx2QZWlEuFk #
+
+data1 = {
+    "ID" : [10001,20002,30003,40004,50005],
+    "Numbers": [10,20,20,40,50],
+    "Letters":["A","B","C","D","E"]
+}
+
+df1 = pd.DataFrame(data1)
+
+data2 = {
+    "ID" : [10001,20002,30003,60006,70007],
+    "Numbers": [10,20,30,40,60],
+    "City":["Lucknow","Munnar","Chennai","Delhi","Jaipur"]
+}
+
+df2 = pd.DataFrame(data2)
+
+merge_data = df1.merge(df2, how="inner")      # ***
+
+merge_data2 = df1.merge(df2, how="inner",on="ID")  # ***
+
+merge_data2 = df2.merge(df1, how="inner",on="ID")
+merge_data2
+
+merge_data2 = df1.merge(df2, how="inner",on=["ID","Numbers"])      # ***
+merge_data2
+
+merge_data3 = df1.merge(df2, how='outer')  # ***
+
+merge_data3 = df1.merge(df2,how='outer', on='ID') #  ***
+merge_data3
+
+left_merge = pd.merge(df1,df2,how="left")  # ***
+
+right_merge = pd.merge(df1,df2,how="right")  # ***
+right_merge
+
+cross_merge = df1.merge(df2, how='cross')  # ***
+
+# Questions to practice #
+# Q1) Merge two tables given in below code(employees and departments) so you only get employees whose departments exist in the department list.
+# Which employee(s) get left out? Why might that happen in a real company database?
+# Run the below code to get the two dataframes called employees and departments
+# Use these two dataframes to perform actions asked in below questions
+
+# this given below is the code to generate two dataframes which is to use in exercise, PLEASE DO NOT CHANGE THIS CODE
+employees = pd.DataFrame({
+    "emp_id": [101, 102, 103, 104],
+    "name": ["Alice", "Bob", "Charlie", "David"],
+    "dept_id": [10, 20, 30, 40]
+})
+
+departments = pd.DataFrame({
+    "dept_id": [10, 20, 30],
+    "dept_name": ["HR", "Finance", "IT"]
+})
+
+# Q2) A university maintains two records: one for students and another for courses offered. Some students mistakenly got registered for courses that don’t exist.
+# Merge so that all students appear, regardless of whether their course exists.
+# Show the students whose course_id doesn’t match any real course.
+# Replace missing courses with "Not Assigned" so it looks cleaner for reporting.
+
+#--------USE THESE TWO DATAFRAMES TWO ANSWER QUESTIONS 2---------
+students = pd.DataFrame({
+    "roll_no": [1, 2, 3, 4],
+    "student_name": ["John", "Emma", "Liam", "Sophia"],
+    "course_id": [101, 102, 103, 104]
+})
+
+courses = pd.DataFrame({
+    "course_id": [101, 102, 105],
+    "course_name": ["Math", "Physics", "Biology"]
+})
 
 
+# Q3) An e-commerce store has sales records for two years. The manager wants to check which orders belong to:
+# only 2024,
+# only 2025,
+# both years.
+# Perform a full outer join on order_id.
+# Add an indicator column to see which year(s) each order belongs to.
+# Identify the loyal customers whose orders appear in both years.
 
+#--------USE THESE TWO DATAFRAMES TWO ANSWER QUESTIONS 3---------
+sales_2024 = pd.DataFrame({
+    "order_id": [1, 2, 3],
+    "product": ["Laptop", "Phone", "Tablet"]
+})
 
+sales_2025 = pd.DataFrame({
+    "order_id": [3, 4, 5],
+    "product": ["Tablet", "Monitor", "Headphones"]
+})
 
+# Q4) A store keeps two logs: orders placed and payments received. Sometimes payments don’t match the right customer due to ID mismatches.
+# Merge using both order_id and customer_id.
+# Find which order(s) failed to match correctly due to customer_id mismatches.
+# What happens if you merge only on order_id? Why could that be risky in real financial systems?
 
+#--------USE THESE TWO DATAFRAMES TWO ANSWER QUESTIONS 4---------
+orders = pd.DataFrame({
+    "order_id": [1, 2, 3, 4],
+    "customer_id": [11, 12, 11, 13],
+    "product": ["Book", "Pen", "Notebook", "Pencil"]
+})
 
+payments = pd.DataFrame({
+    "order_id": [1, 2, 3, 4],
+    "customer_id": [11, 12, 14, 13],
+    "payment_status": ["Paid", "Pending", "Paid", "Pending"]
+})
 
+# Q5)A teacher has two exam score sheets for the same group of students. Some students only appeared for one exam.
+# Merge on id using an outer join.
+# Use suffixes=('_exam1', '_exam2') to clearly distinguish the two scores.
+# Identify which students improved in the second exam.
 
+#--------USE THESE TWO DATAFRAMES TWO ANSWER QUESTIONS 4---------
+df1 = pd.DataFrame({
+    "id": [1, 2, 3],
+    "score": [85, 90, 78]
+})
 
-
-
-
-
-
+df2 = pd.DataFrame({
+    "id": [2, 3, 4],
+    "score": [88, 92, 80]
+})
 
 
 
