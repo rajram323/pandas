@@ -248,4 +248,60 @@ print("Maximum temperature in section A:", min_score_A3)
 min_score_B3 = result_col_key3['B']['Score'].min()
 print("Maximum temperature in section B:", min_score_B3)
 
+### 10_w1_10 ###                     
+# Tutorial Compare #
+# yt - https://www.youtube.com/watch?v=1qGFXfdEjeo #
+
+# Pandas, the compare() function provides a way to compare two DataFrame objects and generate a DataFrame highlighting the differences between them. 
+# This can be particularly useful when you have two datasets and want to identify discrepancies or changes between them
+
+# DataFrame.compare(other, align_axis=1, keep_shape=False, keep_equal=False)
+# So, let’s understand each of its parameters –
+
+# other : This is the first parameter which actually takes the DataFrame object to be compared with the present DataFrame.
+
+# align_axis : It deals with the axis(vertical / horizontal) where the comparison is to be made(by default False).0 or index : Here the output of the differences are presented vertically, 1 or columns : The output of the differences are displayed horizontally.
+
+# keep_shape : It means that whether we want all the data values to be displayed in the output or only the ones with distinct value. It is of bool type and the default value for it is “false”, i.e. it displays all the values in the table by default.
+
+# keep_equal : This is mainly for displaying same or equal values in the output when set to True. If it is made false then it will display the equal values as NANs.
+
+
+df = pd.DataFrame(
+    {
+        "col1": ["a", "a", "b", "b", "a"],
+        "col2": [1.0, 2.0, 3.0, np.nan, 5.0],
+        "col3": [1.0, 2.0, 3.0, 4.0, 5.0],
+    },
+    columns=["col1", "col2", "col3"],
+)
+
+print(df)
+
+df2 = df.copy()
+df.compare(df2)                # ***
+
+df2.loc[0, "col1"] = "c"        # ***
+df2.loc[2, "col3"] = 4.0
+
+df.compare(df2)
+
+df.compare(df2, align_axis = 0)    # ***
+
+df3 = df.copy()
+df3.loc[0,"col1"] = "c"
+df3.loc[1,"col2"] = 100
+df3.loc[2,"col3"] = 4.0
+
+df.compare(df3)
+
+# Comparing various columns instead of whole dataframe
+df['col2'].equals(df2['col2'])    # ***
+
+# Comparing elements of two different columns
+output = pd.Series(df['col2'] == df2['col2'])
+
+df.loc[output]
+
+
 
