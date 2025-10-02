@@ -303,5 +303,75 @@ output = pd.Series(df['col2'] == df2['col2'])
 
 df.loc[output]
 
+### 11_w1_11 ###                     
+# Pivot Table - Tutorial #
+# yt - https://www.youtube.com/watch?v=Pcwf-IIgbu0 #
+
+# A pivot table is a powerful data summarization tool used in data analysis. It allows you to reorganize and summarize tabular data in a flexible manner, providing a compact representation of complex data relationships. 
+# Pivot tables enable you to aggregate and visualize data based on one or more key variables, making it easier to identify patterns and trends within your dataset.
+
+# Create a DataFrame
+data = {
+    'Date': ['2022-01-01', '2022-01-01', '2022-01-02', '2022-01-02'],
+    'Category': ['A', 'B', 'A', 'B'],
+    'Value': [10, 20, 30, 40]
+}
+df = pd.DataFrame(data)
+
+# Create a pivot table
+pivot_table = df.pivot_table(values='Value', index='Date', columns='Category', aggfunc='sum')  # ***
+print(pivot_table)
+
+data = {}
+np.random.seed(2)
+for i in [chr(x) for x in range(65,70)]:
+  data['col'+i] = np.random.randint(1,100,10)
+data['orderID'] = np.random.choice(['A', 'B', 'C'], 10)
+data['product'] = np.random.choice(['Product1', 'Product2', 'Product3'], 10)
+data['customer'] = np.random.choice(['Customer1', 'Customer2', 'Customer3', 'Customer4'], 10)
+df = pd.DataFrame(data)
+
+
+pivot_table2 = df.pivot_table(values='colA', index='orderID', columns='product', aggfunc=np.mean)  # ***
+print(pivot_table2.to_string())
+
+# Aggregation Functions You can specify different aggregation functions when creating a pivot table. Common aggregation functions include 'sum', 'mean', 'count', 'max', and 'min'. For example:
+
+pivot_table3 = df.pivot_table(values='colA', index='orderID', columns='product', aggfunc='max')
+pivot_table3
+pivot_table = df.pivot_table(values='Value', index='Date', columns='Category', aggfunc='max')
+pivot_table
+
+# Multi-level Pivot Tables
+pivot_table = df.pivot_table(values='Value', index=['Date', 'Category'], aggfunc='sum')    # *** no columns check 
+pivot_table
+pivot_table4 = df.pivot_table(values='colA', index=['orderID','customer'], columns='product', aggfunc='max')   # *** index is list 
+pivot_table4
+
+# Handling Missing Values. You can specify how missing values are handled using the fill_value parameter:
+pivot_table5 = df.pivot_table(values='colA', index='orderID', columns='product', aggfunc=np.mean, fill_value=0)    # ***
+pivot_table5
+pivot_table6 = df.pivot_table(values='colA', index=['orderID','customer'], columns='product', aggfunc='max', fill_value = 0)
+pivot_table6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
