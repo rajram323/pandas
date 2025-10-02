@@ -485,6 +485,288 @@ df2 = pd.DataFrame({
     "score": [88, 92, 80]
 })
 
+### 13_w1_13 ###                     
+# Matplotlib - Tutorial #
+# yt - https://www.youtube.com/watch?v=d8OfmTzLSAY #
+# colab - https://colab.research.google.com/drive/1UAuz1BniInjFXOAV6av7rzL3mXQfUlE2?usp=sharing#scrollTo=JdkcKninkhTz #
+
+# Matplotlib is a powerful and widely-used library in Python for creating static, interactive, and animated visualizations.
+
+# This video extensively covers :
+
+# Line Plots
+# Scatter Plots
+# Histogram
+# Bar Chart
+# Pie Chart
+# Box Plot
+# supplementary content :
+
+# 3D Plotting
+# Animating Plots
+
+# Line Plots
+
+from matplotlib import pyplot as plt
+
+# sample_data_points : (2,1),(5,6),(10,8)
+X=[2, 5, 10]
+Y=[1, 6, 8]
+
+#create the Plot
+plt.plot(X,Y,'ko--')  # ***
+
+#Display the Plot
+plt.show()
+
+import matplotlib.pyplot as plt
+
+# DataSet of a quadratic function y1=x^2
+x = [0, 1, 2, 3, 4, 5]
+y1 = [0, 1, 4, 9, 16, 25]
+
+# DataSet of a Cubic function y2=x^3
+y2=[0, 1, 8, 27, 64, 125]
+
+
+# Create a line plot
+plt.plot(x, y1, marker='o', linestyle='--', color='b', label='y = x^2')  # ***
+plt.plot(x, y2, marker='o', linestyle='--', color='k', label='y = x^3')
+
+# labels and a title
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Line Plot')
+
+# Add a legend
+plt.legend()  # ***
+
+#Add Gridlines
+plt.grid(True,c='k')  # ***
+
+# Display the plot
+plt.show()  # ***
+
+# Scatter Plot
+
+import numpy as np
+x=np.random.randint(100,size=100)
+print(x)
+
+import numpy as np
+
+#random generation of Dataset
+x=np.random.randint(100,size=100)
+y=np.random.randint(100,size=100)
+
+# Creating a Scatter plot
+plt.scatter(x,y,marker='o',s=30)
+
+#Add labels and Title
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Scatter Plot')
+
+#Show the plot
+plt.show()
+
+# Histogram
+
+x=np.random.normal(20,1,100)
+print(x)
+
+#Random normal distribution with mean=20 and Std=5
+x=np.random.normal(20,5,1000)
+
+#plotting the histogram
+plt.hist(x,bins=13)      # ***
+
+# Add title
+plt.title('Histogram',fontsize=25)  # ***
+
+# Display the plot
+plt.show()
+
+# Bar Chart
+
+# Sample data
+categories = ['A', 'B', 'C', 'D', 'E']
+values = np.random.randint(100,size=5)  # ***
+
+# Create a bar chart
+plt.bar(categories, values, color='skyblue',width=0.7)  # ***
+
+# Add labels and title
+plt.xlabel('Categories')  # ***
+plt.ylabel('Values')      # ***
+plt.title('Bar Chart')    # ***
+
+# Display the plot
+plt.show()
+
+# Pie chart
+# Sample data
+categories = ['A', 'B', 'C', 'D', 'E']
+values = np.random.randint(100,size=5)
+
+# Create a Pie chart
+plt.pie(values, labels=categories,explode=[0,0.1,0,0,0],autopct="%.1f%%",startangle=90,shadow=True)  # ***
+
+# Add Title
+plt.title('Bar Chart')
+
+# Display the plot
+plt.show()
+
+# Box Plot
+import matplotlib.pyplot as plt
+
+# Sample data
+x=np.random.normal(200, 8, 1000)  # ***
+
+#Five Number summary  # ***
+IQR=np.quantile(x, 0.75) - np.quantile(x, 0.25)
+print('Lower Fence : ', np.quantile(x, 0.25)-(1.5*IQR))
+print('Q1 : ',np.quantile(x, 0.25))
+print('Median : ',np.median(x))
+print('Q3 : ',np.quantile(x, 0.75))
+print('Upper Fence : ',np.quantile(x, 0.75)+(1.5*IQR))
+print('\n')
+
+
+# Create a Pie chart
+plt.boxplot(x)  # ***
+
+# Add Title
+plt.title('BOX Plot')
+plt.yticks([np.quantile(x, 0.25)-(1.5*IQR), np.quantile(x, 0.25), np.median(x), np.quantile(x, 0.75), np.quantile(x, 0.75)+(1.5*IQR)])    # *** 
+
+# Display the plot
+plt.show()
+
+# Subploting
+
+#Creating the dataset
+x=np.arange(100)
+
+P1=np.sin(x)
+P2=np.cos(x)
+
+#1st subplot
+plt.subplot(221)
+plt.plot(P1)
+plt.title('sine function')
+
+#2nd Subplot
+plt.subplot(222)
+plt.plot(P2)
+plt.title('cosine function')
+
+# Display the subplot
+plt.show()
+
+#spliting the figure into subparts
+fig , axis = plt.subplots(2,2)
+
+# Plotting through axis
+axis[0, 0].plot(np.sin(np.arange(100)))
+axis[0, 1].hist(np.random.normal(20,5,1000))
+axis[1, 0].bar(categories, values)
+axis[1, 1].plot(np.log(np.arange(100)))
+
+# Display the plots
+plt.show()
+
+# Subploting
+#Creating the dataset
+x=np.arange(100)  # ***
+
+P1=np.sin(x)
+P2=np.cos(x)
+
+#1st subplot
+plt.subplot(221)  # ***
+plt.plot(P1)  # ***
+plt.title('sine function')
+
+#2nd Subplot
+plt.subplot(222)  # ***
+plt.plot(P2)  # ***
+plt.title('cosine function')
+
+# Display the subplot
+plt.show()
+
+#spliting the figure into subparts
+fig , axis = plt.subplots(2,2)  # ***
+
+# Plotting through axis  # ***
+axis[0, 0].plot(np.sin(np.arange(100)))
+axis[0, 1].hist(np.random.normal(20,5,1000))
+axis[1, 0].bar(categories, values)
+axis[1, 1].plot(np.log(np.arange(100)))
+
+# Display the plots
+plt.show()
+
+# 3D PLOTTING
+# Defining the axis as 3D
+ax=plt.axes(projection='3d')  # ***
+
+# Dataset generation
+X=np.random.randint(100,size=100)
+Y=np.random.randint(100,size=100)
+Z=np.random.randint(100,size=100)
+
+#Plotting the dataset
+ax.scatter(X,Y,Z)  # ***
+
+#Display the plot
+plt.show()
+
+# Animating the plots
+# Number of tosses
+n_tosses = 500
+# Initialize the counts of heads and total tosses
+heads_count = 0
+tosses = np.arange(1, n_tosses + 1)  # ***
+
+# Create a figure for plotting
+fig, ax = plt.subplots()   # ***
+ax.set_xlim(1, n_tosses)   # ***
+ax.set_ylim(0, 1)          # ***
+line, = ax.plot([], [], color='blue')  # ***
+
+# Labels and title
+ax.set_xlabel('Number of Tosses')
+ax.set_ylabel('Proportion of Heads')
+ax.set_title('Coin Toss Simulation')
+
+# List to store the proportion of heads over time
+proportion_heads = []
+
+# Simulate the coin toss and update the plot
+for i in range(1, n_tosses + 1):
+    # Simulate a coin toss (1 = heads, 0 = tails)
+    toss = np.random.randint(0, 2)  # ***
+    if toss == 1:
+        heads_count += 1
+
+    # Calculate the proportion of heads
+    proportion_heads.append(heads_count / i)  # ***
+
+    # Update the line data
+    line.set_data(tosses[:i], proportion_heads)  # ***
+
+    # Redraw the plot
+    plt.pause(0.01)  # ***
+
+# Show the final plot
+plt.show()
+
+# Animating the plots
+
+
 
 
 
